@@ -1,0 +1,2 @@
+semantic-operators[typesafe]==0.11.0
+python-dotenv
