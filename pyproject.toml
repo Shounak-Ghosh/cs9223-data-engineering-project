@@ -1,0 +1,33 @@
+[project]
+name = "de-semantic-optimizer"
+version = "0.1.0"
+description = "Cost-based optimization of combined and sequential semantic operators using Jev"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "typesafe-sdk>=0.7.5",
+    "huggingface-hub>=0.25.0",
+    "python-dotenv>=1.0.0",
+    "semantic-operators[typesafe]==0.11.0",
+]
+
+[project.scripts]
+jev-smoke = "jev_milestone_1.smoke:main"
+jev-prepare = "jev_milestone_1.prepare:main"
+jev-evaluate = "jev_milestone_1.evaluate:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jev_milestone_1"]

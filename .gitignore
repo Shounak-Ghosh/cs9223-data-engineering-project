@@ -1,3 +1,12 @@
+# Additional files
+.DS_Store
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.env
+results/*
+!results/.gitkeep
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

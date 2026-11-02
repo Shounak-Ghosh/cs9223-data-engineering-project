@@ -1,0 +1,18 @@
+{
+  "dataset_file": "test.jsonl",
+  "dataset_repo": "SetFit/go_emotions",
+  "dataset_revision": "b83b20869f3b5eff89c0a375d8d015a878826094",
+  "labels": [
+    "gratitude",
+    "admiration",
+    "anger",
+    "optimism"
+  ],
+  "notes": "Ground-truth emotion annotations can be subjective and imperfect.",
+  "sample_rows": 100,
+  "sample_seed": 42,
+  "sample_sha256": "9c8f327dd3298f915f5a2095ff79c078d038f4f6abc04305491a52c9932c3c3b",
+  "sampling_method": "uniform without replacement, sorted by source row",
+  "source_rows": 5427,
+  "source_sha256": "63c68fd56fa2470a701135a0c31dd8aff946a535efef663a7917415149e88630"
+}
