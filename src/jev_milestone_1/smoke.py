@@ -12,11 +12,17 @@ def main() -> None:
 
     load_dotenv()
     if not os.getenv("TYPESAFE_API_KEY"):
-        raise SystemExit("TYPESAFE_API_KEY missing; export it or put it in a local .env file")
+        raise SystemExit(
+            "TYPESAFE_API_KEY missing; export it or put it in a local .env file"
+        )
     with TypeSafeClient(model=MODEL) as client:
         response = client.system_one(
             state="Thank you so much for your help!",
-            questions={"gratitude": Noul(instructions="Does this text express gratitude or thanks?")},
+            questions={
+                "gratitude": Noul(
+                    instructions="Does this text express gratitude or thanks?"
+                )
+            },
         )
     print(f"Model: {response.model}")
     print(f"P(gratitude): {response.nouls['gratitude'].noul:.4f}")
