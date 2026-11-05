@@ -1,0 +1,16 @@
+{
+  "exact_duplicate_rows_dropped": 135,
+  "fetched_at": "2026-11-05T21:53:29.157957+00:00",
+  "id_column": "reviewId",
+  "label_column": "scoreSentiment",
+  "labels_file": null,
+  "output_sha256": "6238779dfc85688d68e9640d26ce996467cb730c416ca18cd483830013b4d578",
+  "ref": "c4b2bcff3a5907148f504cfb6faea4c6d3f90e8f",
+  "reviews_file": "files/movie/data/sf_2000/Reviews.csv",
+  "revision": "c4b2bcff3a5907148f504cfb6faea4c6d3f90e8f",
+  "rows": 1865,
+  "source_sha256": {
+    "files/movie/data/sf_2000/Reviews.csv": "df231cfb189c9e169aa6afe415e4fa24533b04499179bbd61416c4c6af28ca21"
+  },
+  "source_url": "https://github.com/SemBench/SemBench"
+}

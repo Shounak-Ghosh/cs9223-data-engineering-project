@@ -169,6 +169,8 @@ uv run jev-fetch-sembench \
 uv run jev-make-annotation-sheets --source data/sembench_fetch/verified_reviews.csv \
   --n 100 --seed 42 --annotators 3 --output-dir data/annotation
 
+# Add --keyword-fraction 0.5 if "mentions acting" is rare and more positives are needed. It is recorded as a disclosed sampling choice.
+
 # 3. Annotators fill the `label` column (0/1) independently, then:
 uv run jev-annotation-agreement --sheets data/annotation/annotator_{A,B,C}.csv \
   --source data/sembench_fetch/verified_reviews.csv \
