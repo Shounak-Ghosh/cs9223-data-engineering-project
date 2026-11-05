@@ -14,6 +14,11 @@ from jev_milestone_1.common import canonical_json, digest_file, read_jsonl, writ
 
 def load_task(path: Path) -> dict:
     task = json.loads(path.read_text(encoding="utf-8"))
+    return validate_task(task)
+
+
+def validate_task(task: dict) -> dict:
+    """Validate an in-memory definition without creating or modifying files."""
     if not isinstance(task, dict):
         raise ValueError("Task must be a JSON object")
     dataset = task.get("dataset")

@@ -143,6 +143,73 @@ selected IDs are kept in manifests. An adjacent sample manifest is checked befor
 execution, including dry runs, and imported samples require the matching task
 definition. The importer cannot certify annotation accuracy.
 
+### Preparing the second predicate (helper tools)
+
+Four standalone commands automate everything except the labeling itself. None is used
+by `jev-compare`/`jev-experiment`, and none produces model-generated labels. The
+example predicate is `acting_quality`: "Does this movie review comment on the quality
+of the acting or performances?" (praise or criticism both count).
+
+```bash
+# 1. Networked, run once: this pinned snapshot contains Reviews.csv and its
+#    scoreSentiment column, so no separate label download or --labels-file is needed.
+uv run jev-fetch-sembench \
+  --ref c4b2bcff3a5907148f504cfb6faea4c6d3f90e8f \
+  --reviews-file files/movie/data/sf_2000/Reviews.csv \
+  --drop-exact-duplicates --output-dir data/sembench_fetch
+
+# For the Movie use case:
+uv run jev-fetch-sembench \
+  --ref c4b2bcff3a5907148f504cfb6faea4c6d3f90e8f \
+  --reviews-file files/movie/data/sf_2000/Reviews.csv \
+  --drop-exact-duplicates \
+  --output-dir data/sembench_fetch
+
+# 2. Blind sheets (2-3 annotators; text only, no sentiment label) and GUIDELINES.md.
+uv run jev-make-annotation-sheets --source data/sembench_fetch/verified_reviews.csv \
+  --n 100 --seed 42 --annotators 3 --output-dir data/annotation
+
+# 3. Annotators fill the `label` column (0/1) independently, then:
+uv run jev-annotation-agreement --sheets data/annotation/annotator_{A,B,C}.csv \
+  --source data/sembench_fetch/verified_reviews.csv \
+  [--adjudication adjudicated.csv] --output-dir data/annotation_result
+
+# 4. Fill the template, then import with jev-prepare-sembench as above.
+uv run jev-build-task --template examples/sembench_movie.task.template.json \
+  --fetch-json data/sembench_fetch/fetch.json \
+  --agreement-json data/annotation_result/agreement.json \
+  --sheet-manifest data/annotation/sheet_manifest.json \
+  --dataset data/annotation_result/annotated.csv --output data/verified_task.json
+```
+
+For the pinned snapshot above, `fetch.json` records the resolved Git revision,
+raw CSV checksum, deduplicated output checksum, and number of exact duplicates
+removed. Conflicting rows sharing an ID still fail. Other revisions may use a
+separate acquisition/generation workflow; a Git revision alone does not pin an
+external download. Keep any such external source and checksum alongside the code
+revision if you change data sources.
+
+`jev-build-task` validates the task dictionary in memory and creates no validation
+scratch file. Before writing, it checks the annotated dataset checksum and row
+count against `agreement.json`, binds the agreement/source and sheet/source hashes
+to `fetch.json`'s output checksum, and matches selected IDs and annotator counts.
+The fetched source URL and ID column are propagated into the task. Report hashes
+and selected IDs are retained in task provenance. Mismatched predicates/prompts,
+positive counts, or adjudication IDs/counts also fail. These checks detect mixed or
+modified artifacts; they do not independently certify human annotation quality.
+
+Use the matching `--sheet-manifest` to retain the sampling protocol. New agreement
+reports include selected IDs. For older reports without them, the matching sheet
+manifest is required; reports lacking the required checksums must be regenerated.
+Review the generated `label_source` before using it as final provenance.
+
+Disagreements must be resolved in an adjudication file (`reviewId,label`); unresolved
+ones are an error. Agreement statistics (raw agreement, Cohen/Fleiss kappa) are
+reported without a pass/fail threshold. `--keyword-fraction` oversamples reviews that
+mention acting words so the sample has positives; it is recorded in the manifest and
+`label_source`, and makes the sample unrepresentative of the source. Review the
+generated `label_source` before using the task.
+
 ## Cost
 
 Raw input/output token counts are always recorded when the SDK returns them. Choose

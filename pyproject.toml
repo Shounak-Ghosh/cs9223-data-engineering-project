@@ -19,6 +19,10 @@ jev-evaluate = "jev_milestone_1.evaluate:main"
 jev-experiment = "jev_milestone_2.cli:main"
 jev-compare = "jev_milestone_2.runner:main"
 jev-prepare-sembench = "jev_milestone_2.datasets:main"
+jev-fetch-sembench = "jev_milestone_2.tools.fetch:main"
+jev-make-annotation-sheets = "jev_milestone_2.tools.sheets:main"
+jev-annotation-agreement = "jev_milestone_2.tools.agreement:main"
+jev-build-task = "jev_milestone_2.tools.build_task:main"
 
 [dependency-groups]
 dev = [
