@@ -1,0 +1,28 @@
+{
+  "dataset": {
+    "name": "SemBench",
+    "scenario": "movie_with_additional_annotations",
+    "revision": null,
+    "source_url": "https://github.com/SemBench/SemBench/tree/main/src/scenario/movie"
+  },
+  "id_column": "reviewId",
+  "text_column": "reviewText",
+  "predicates": {
+    "positive": {
+      "kind": "semantic",
+      "prompt": "Does this movie review express a positive sentiment?",
+      "label_column": "scoreSentiment",
+      "positive_values": ["POSITIVE"],
+      "negative_values": ["NEGATIVE"],
+      "label_source": "SemBench Movie withheld scoreSentiment annotation; verify the selected export and revision"
+    },
+    "second_semantic_predicate": {
+      "kind": "semantic",
+      "prompt": null,
+      "label_column": null,
+      "positive_values": ["1"],
+      "negative_values": ["0"],
+      "label_source": null
+    }
+  }
+}
