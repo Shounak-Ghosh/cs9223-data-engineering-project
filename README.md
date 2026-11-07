@@ -27,8 +27,3 @@ uv run pytest -q
 
 See [Milestone 2 instructions](src/jev_milestone_2/README.md) for live runs,
 explicit filter orders, cost rates, artifacts, and quality interpretation.
-
-The [Milestone 2 dataset and comparison guide](MILESTONE2.md) describes
-`uv run jev-compare --dry-run`, SemBench task imports, verified labels,
-request-credit pricing, and CSV exports. GoEmotions remains the default
-development sample; SemBench-derived tasks are imported separately.
