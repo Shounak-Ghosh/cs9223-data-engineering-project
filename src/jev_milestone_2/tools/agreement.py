@@ -73,7 +73,7 @@ def analyze(sheets: dict[str, dict[str, str]], adjudication: dict[str, str]) -> 
         raise ValueError(f"Adjudication given for rows without disagreement: {sorted(stray)[:5]}")
     unresolved = [i for i in disagreements if i not in adjudication]
     if unresolved:
-        raise ValueError(f"{len(unresolved)} disagreements need adjudication, e.g. {unresolved[:5]}")
+        raise ValueError(f"{len(unresolved)} disagreements need adjudication: {unresolved}")
     final = {i: adjudication.get(i, sheets[names[0]][i]) for i in ids}
     pairwise = {
         f"{x}-{y}": {
