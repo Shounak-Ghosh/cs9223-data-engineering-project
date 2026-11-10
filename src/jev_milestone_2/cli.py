@@ -92,11 +92,11 @@ def main(argv: Sequence[str] | None = None, *, comparison_only: bool = False) ->
         default=100 if comparison_only else None,
         help="Reject experiments whose worst-case call count exceeds this budget",
     )
-    parser.add_argument("--input-usd-per-million", type=float)
-    parser.add_argument("--output-usd-per-million", type=float)
-    parser.add_argument("--credits-per-question-per-block", type=float)
-    parser.add_argument("--bytes-per-block", type=int, default=4096)
-    parser.add_argument("--usd-per-credit", type=float)
+    parser.add_argument("--input-usd-per-million", type=float, help="USD per million billable input tokens; verify at docs.typesafe.ai/models")
+    parser.add_argument("--output-usd-per-million", type=float, help="USD per million output tokens; TypeSafe Jev currently charges zero")
+    parser.add_argument("--credits-per-question-per-block", type=float, help="Custom-contract estimator only; not TypeSafe Jev token billing")
+    parser.add_argument("--bytes-per-block", type=int, default=4096, help="Block size for custom-contract credit estimation only")
+    parser.add_argument("--usd-per-credit", type=float, help="Optional custom-contract conversion; not a TypeSafe Jev token price")
     parser.add_argument(
         "--pricing-source",
         help="Verified rate source/date or account contract used for the estimate",
@@ -234,7 +234,11 @@ def main(argv: Sequence[str] | None = None, *, comparison_only: bool = False) ->
         else "tokens"
         if pricing
         else None,
-        "cost_note": "Estimate, not invoiced cost; request blocks use local canonical JSON, not measured SDK wire bytes; null = unknown",
+        "cost_note": (
+            "Custom-contract estimate from local canonical JSON, not measured SDK wire bytes or invoiced cost; null = unknown"
+            if isinstance(pricing, QuestionPricing)
+            else "Token-rate estimate from SDK usage, not invoiced cost; null = unknown"
+        ),
         "requested_call_budget": args.max_api_calls,
         "worst_case_model_calls": worst_case,
         "execution": "Serial, fresh requests, no application cache; plan order rotates each repeat",

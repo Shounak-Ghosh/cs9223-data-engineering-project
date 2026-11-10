@@ -20,6 +20,8 @@ VALID = {"0", "1"}
 
 
 def cohen_kappa(a: list[str], b: list[str]) -> float | None:
+    if not a or len(a) != len(b) or any(v not in VALID for v in a + b):
+        raise ValueError("Kappa requires equal nonempty binary label columns")
     n = len(a)
     observed = sum(x == y for x, y in zip(a, b)) / n
     expected = sum((a.count(c) / n) * (b.count(c) / n) for c in VALID)
@@ -27,6 +29,9 @@ def cohen_kappa(a: list[str], b: list[str]) -> float | None:
 
 
 def fleiss_kappa(columns: list[list[str]]) -> float | None:
+    if (len(columns) < 2 or not columns[0]
+            or any(len(c) != len(columns[0]) or any(v not in VALID for v in c) for c in columns)):
+        raise ValueError("Kappa requires at least two equal nonempty binary label columns")
     raters, n = len(columns), len(columns[0])
     counts = [[sum(col[i] == c for col in columns) for c in sorted(VALID)] for i in range(n)]
     p_i = [(sum(k * k for k in row) - raters) / (raters * (raters - 1)) for row in counts]
@@ -62,6 +67,12 @@ def load_adjudication(path: Path) -> dict[str, str]:
 
 def analyze(sheets: dict[str, dict[str, str]], adjudication: dict[str, str]) -> dict:
     names = sorted(sheets)
+    if len(names) < 2 or any(not sheets[n] for n in names):
+        raise ValueError("Provide at least two nonempty annotator sheets")
+    if any(v not in VALID for labels in sheets.values() for v in labels.values()):
+        raise ValueError("Annotator labels must be 0 or 1")
+    if any(v not in VALID for v in adjudication.values()):
+        raise ValueError("Adjudication labels must be 0 or 1")
     id_sets = [set(sheets[n]) for n in names]
     if any(s != id_sets[0] for s in id_sets):
         raise ValueError("Annotator sheets do not contain the same reviewIds")
@@ -77,14 +88,23 @@ def analyze(sheets: dict[str, dict[str, str]], adjudication: dict[str, str]) -> 
     final = {i: adjudication.get(i, sheets[names[0]][i]) for i in ids}
     pairwise = {
         f"{x}-{y}": {
+            "row_annotator": x,
+            "column_annotator": y,
             "agreement": sum(p == q for p, q in zip(columns[a], columns[b])) / len(ids),
             "cohen_kappa": cohen_kappa(columns[a], columns[b]),
+            # Each table cell counts paired annotations, not predictions vs. gold.
+            "confusion_table": {
+                row: {column: sum(p == row and q == column for p, q in zip(columns[a], columns[b]))
+                      for column in sorted(VALID)}
+                for row in sorted(VALID)
+            },
         }
         for (a, x), (b, y) in combinations(enumerate(names), 2)
     }
     return {
         "annotators": names,
         "rows": len(ids),
+        "raw_unanimous_agreement": (len(ids) - len(disagreements)) / len(ids),
         "pairwise": pairwise,
         "fleiss_kappa": fleiss_kappa(columns) if len(names) >= 3 else None,
         "disagreement_ids": disagreements,
