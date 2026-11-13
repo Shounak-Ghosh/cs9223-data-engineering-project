@@ -23,6 +23,9 @@ jev-fetch-sembench = "jev_milestone_2.tools.fetch:main"
 jev-make-annotation-sheets = "jev_milestone_2.tools.sheets:main"
 jev-annotation-agreement = "jev_milestone_2.tools.agreement:main"
 jev-build-task = "jev_milestone_2.tools.build_task:main"
+jev-filter-profile = "jev_milestone_3.cli:profile_main"
+jev-sample-analysis = "jev_milestone_3.cli:analysis_main"
+jev-ordering-analysis = "jev_milestone_3.cli:ordering_main"
 
 [dependency-groups]
 dev = [
@@ -37,4 +40,4 @@ build-backend = "hatchling.build"
 testpaths = ["tests"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/jev_milestone_1", "src/jev_milestone_2"]
+packages = ["src/jev_milestone_1", "src/jev_milestone_2", "src/jev_milestone_3"]
