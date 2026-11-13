@@ -1,0 +1,38 @@
+{
+  "api_calls": 0,
+  "created_at": "2026-11-12T19:46:01.878081+00:00",
+  "draws": 1000,
+  "filters": {
+    "a": "acting_quality",
+    "b": "positive"
+  },
+  "full_runs": [
+    {
+      "calls_sha256": "1f9e6d77d2c3acbf398d41c3aaae8f088441cb08d637d5409f4a0372f0dbecac",
+      "dir": "results/milestone3/acting_quality-full",
+      "manifest_sha256": "befa46f0afc6b187d0b10e240944e7d1d82d0e084aa555e72d3377bc1055eaa3"
+    },
+    {
+      "calls_sha256": "d76314066113bb2ed397480a41f743a29ea98b17b4d75987f169f1d7688c8090",
+      "dir": "results/milestone3/positive-full",
+      "manifest_sha256": "9280562515cb07beac490df9e2838de0e3e56a2a9c60f160e15e232336f1d001"
+    }
+  ],
+  "kind": "ordering_analysis",
+  "output_sha256": {
+    "ordering.csv": "22ec91e6c5946f41a51522831ee00d92c8cb3cae4fff529b9fa470207bdbad51",
+    "ordering.json": "7113a046f18d953ab7cfff60fa9283ff1133d3d79b79090d466b1edffc064270"
+  },
+  "project_version": "0.1.0",
+  "python": "3.11.18",
+  "seed": 0,
+  "sizes": [
+    5,
+    10,
+    15,
+    20,
+    30,
+    50
+  ],
+  "status": "complete"
+}

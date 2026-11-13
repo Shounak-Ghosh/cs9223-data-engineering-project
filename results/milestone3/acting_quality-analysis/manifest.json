@@ -1,0 +1,34 @@
+{
+  "api_calls": 0,
+  "created_at": "2026-11-12T19:20:16.545433+00:00",
+  "draws": 1000,
+  "filter": "acting_quality",
+  "full_run": {
+    "calls_sha256": "1f9e6d77d2c3acbf398d41c3aaae8f088441cb08d637d5409f4a0372f0dbecac",
+    "dir": "results/milestone3/acting_quality-full",
+    "manifest_sha256": "befa46f0afc6b187d0b10e240944e7d1d82d0e084aa555e72d3377bc1055eaa3"
+  },
+  "kind": "sample_analysis",
+  "live_sample": {
+    "calls_sha256": "e6ffe9b8d30b97e2dfb39046d49dbf6189628f730e7d7a7f36b8d2ae6af48d59",
+    "dir": "results/milestone3/acting_quality-k10-seed42",
+    "manifest_sha256": "22482f0ed3c43876d72477d64c7698e70eabc991d76d8764cea09c6f8ff1fd3a"
+  },
+  "output_sha256": {
+    "analysis.csv": "8eb4cabf750bf1bf85bfbe28b3d6209e52875ac3dee853f8c265b104e8d63165",
+    "analysis.json": "e6317e72937d2ed39427fb724c512ed9d7e10e878f77e6eb1a6d5174ba61693e"
+  },
+  "population_size": 100,
+  "project_version": "0.1.0",
+  "python": "3.11.18",
+  "seed": 0,
+  "sizes": [
+    5,
+    10,
+    15,
+    20,
+    30,
+    50
+  ],
+  "status": "complete"
+}

@@ -1,0 +1,99 @@
+{
+  "cost_basis": "mean_cost_usd",
+  "draws": 1000,
+  "filters": {
+    "a": "acting_quality",
+    "b": "positive"
+  },
+  "per_k": [
+    {
+      "draws": 1000,
+      "k": 5,
+      "max_regret": 0.406450573026089,
+      "mean_regret": 0.03210959526906099,
+      "plan_agreement": 0.921,
+      "plan_tie_fraction": 0.0,
+      "selectivity_order_agreement": 0.921,
+      "selectivity_tie_fraction": 0.058
+    },
+    {
+      "draws": 1000,
+      "k": 10,
+      "max_regret": 0.406450573026089,
+      "mean_regret": 0.004064505730260891,
+      "plan_agreement": 0.99,
+      "plan_tie_fraction": 0.0,
+      "selectivity_order_agreement": 0.99,
+      "selectivity_tie_fraction": 0.008
+    },
+    {
+      "draws": 1000,
+      "k": 15,
+      "max_regret": 0.406450573026089,
+      "mean_regret": 0.000406450573026089,
+      "plan_agreement": 0.999,
+      "plan_tie_fraction": 0.0,
+      "selectivity_order_agreement": 0.999,
+      "selectivity_tie_fraction": 0.001
+    },
+    {
+      "draws": 1000,
+      "k": 20,
+      "max_regret": 0.0,
+      "mean_regret": 0.0,
+      "plan_agreement": 1.0,
+      "plan_tie_fraction": 0.0,
+      "selectivity_order_agreement": 1.0,
+      "selectivity_tie_fraction": 0.0
+    },
+    {
+      "draws": 1000,
+      "k": 30,
+      "max_regret": 0.0,
+      "mean_regret": 0.0,
+      "plan_agreement": 1.0,
+      "plan_tie_fraction": 0.0,
+      "selectivity_order_agreement": 1.0,
+      "selectivity_tie_fraction": 0.0
+    },
+    {
+      "draws": 1000,
+      "k": 50,
+      "max_regret": 0.0,
+      "mean_regret": 0.0,
+      "plan_agreement": 1.0,
+      "plan_tie_fraction": 0.0,
+      "selectivity_order_agreement": 1.0,
+      "selectivity_tie_fraction": 0.0
+    }
+  ],
+  "population_size": 100,
+  "reference": {
+    "best_order": [
+      "acting_quality",
+      "positive"
+    ],
+    "order_costs_per_record": {
+      "acting_quality first": 1.5113448e-05,
+      "positive first": 2.1256317599999998e-05
+    },
+    "per_call_cost": {
+      "acting_quality": 1.316952e-05,
+      "positive": 1.295952e-05
+    },
+    "selectivity": {
+      "acting_quality": 0.15,
+      "positive": 0.63
+    },
+    "wrong_order_regret": 0.406450573026089
+  },
+  "seed": 0,
+  "sizes": [
+    5,
+    10,
+    15,
+    20,
+    30,
+    50
+  ]
+}
