@@ -27,3 +27,33 @@ uv run pytest -q
 
 See [Milestone 2 instructions](src/jev_milestone_2/README.md) for live runs,
 explicit filter orders, cost rates, artifacts, and quality interpretation.
+
+# Milestone 3
+
+Estimate each filter's selectivity, tokens, and latency from a small sample and
+compare the estimates with full-data measurements:
+
+```bash
+uv sync --locked
+uv run pytest -q
+uv run jev-filter-profile --help
+```
+
+See [Milestone 3 instructions](src/jev_milestone_3/README.md) for the run
+sequence, outputs, results, and the recommended sample size (k = 20).
+
+# Milestone 4
+
+Sample-based cost optimizer: estimate filter costs and selectivities from a seeded
+sample, choose the cheapest filter order or the combined plan (with a quality
+guard), execute it, and compare predicted with actual cost:
+
+```bash
+uv sync --locked
+uv run pytest -q
+uv run jev-optimize --input data/sembench_movie_verified.jsonl \
+  --task data/verified_task.json --dry-run
+```
+
+See [Milestone 4 instructions](src/jev_milestone_4/README.md) for the cost model,
+quality guard, live runs, outputs, and interpretation.

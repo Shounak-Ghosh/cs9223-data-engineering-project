@@ -8,6 +8,7 @@ __pycache__/
 results/*
 !results/.gitkeep
 !results/milestone3/
+!results/milestone4/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
