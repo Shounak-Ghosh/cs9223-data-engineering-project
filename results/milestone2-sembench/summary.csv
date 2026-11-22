@@ -1,0 +1,4 @@
+plan,n,tp,fp,fn,tn,precision,recall,f1,gold_positive_count,model_calls,semantic_questions,runtime_seconds,input_tokens,output_tokens,estimated_credits,estimated_cost_usd,repeat_consistency
+"combined:acting_quality,positive",100,8,0,6,86,1.0,0.5714285714285714,0.7272727272727273,14,100,200,8.363844625011552,32956,3700,,,
+"sequential:acting_quality,positive",100,8,0,6,86,1.0,0.5714285714285714,0.7272727272727273,14,116,116,9.354812291974667,36362,2420,,,
+"sequential:positive,acting_quality",100,8,0,6,86,1.0,0.5714285714285714,0.7272727272727273,14,164,164,13.208136041008402,50889,3344,,,

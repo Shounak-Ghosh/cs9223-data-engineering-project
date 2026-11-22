@@ -6,8 +6,10 @@ __pycache__/
 *.py[cod]
 .env
 results/*
+!results/milestone2-sembench/
 !results/.gitkeep
 !results/milestone3/
+!results/milestone4/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

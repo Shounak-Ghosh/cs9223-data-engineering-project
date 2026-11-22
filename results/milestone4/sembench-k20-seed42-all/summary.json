@@ -1,0 +1,252 @@
+{
+  "chosen": "combined:acting_quality,positive",
+  "execution": {
+    "comparisons_vs_combined": {
+      "combined:acting_quality,positive": {
+        "estimated_credit_savings": null,
+        "first_repeat_prediction_disagreements": 0,
+        "model_calls_saved": 0
+      },
+      "sequential:acting_quality,positive": {
+        "estimated_credit_savings": null,
+        "first_repeat_prediction_disagreements": 0,
+        "model_calls_saved": -13
+      },
+      "sequential:positive,acting_quality": {
+        "estimated_credit_savings": null,
+        "first_repeat_prediction_disagreements": 0,
+        "model_calls_saved": -54
+      }
+    },
+    "plans": {
+      "combined:acting_quality,positive": {
+        "agreement_with_independent": null,
+        "api_latency_seconds": 9.06469826103421,
+        "estimated_cost_usd": 0.0011116559999999997,
+        "estimated_credits": null,
+        "input_tokens": 26468,
+        "model_calls": 80,
+        "output_tokens": 2960,
+        "repeat_consistency": null,
+        "repeats": [
+          {
+            "estimated_cost_usd": 0.0011116559999999997,
+            "estimated_credits": null,
+            "execution_position": 1,
+            "filter_order": [
+              "acting_quality",
+              "positive"
+            ],
+            "input_tokens": 26468,
+            "model_calls": 80,
+            "n_records": 80,
+            "output_tokens": 2960,
+            "plan": "combined:acting_quality,positive",
+            "quality": {
+              "accuracy": 0.9375,
+              "f1": 0.7368421052631579,
+              "fn": 5,
+              "fp": 0,
+              "gold_positive_count": 12,
+              "gold_selectivity": 0.15,
+              "n": 80,
+              "precision": 1.0,
+              "predicted_selectivity": 0.0875,
+              "quality_note": null,
+              "recall": 0.5833333333333334,
+              "tn": 68,
+              "tp": 7
+            },
+            "repeat": 1,
+            "runtime_seconds": 9.092651799001032,
+            "stages": [
+              {
+                "filter": "acting_quality",
+                "input_rows": 80,
+                "passed_rows": 13
+              },
+              {
+                "filter": "positive",
+                "input_rows": 80,
+                "passed_rows": 54
+              }
+            ],
+            "strategy": "combined"
+          }
+        ],
+        "runtime_seconds": 9.092651799001032,
+        "semantic_questions": 160
+      },
+      "sequential:acting_quality,positive": {
+        "agreement_with_independent": null,
+        "api_latency_seconds": 10.384928199069691,
+        "estimated_cost_usd": 0.001228164,
+        "estimated_credits": null,
+        "input_tokens": 29242,
+        "model_calls": 93,
+        "output_tokens": 1940,
+        "repeat_consistency": null,
+        "repeats": [
+          {
+            "estimated_cost_usd": 0.001228164,
+            "estimated_credits": null,
+            "execution_position": 2,
+            "filter_order": [
+              "acting_quality",
+              "positive"
+            ],
+            "input_tokens": 29242,
+            "model_calls": 93,
+            "n_records": 80,
+            "output_tokens": 1940,
+            "plan": "sequential:acting_quality,positive",
+            "quality": {
+              "accuracy": 0.9375,
+              "f1": 0.7368421052631579,
+              "fn": 5,
+              "fp": 0,
+              "gold_positive_count": 12,
+              "gold_selectivity": 0.15,
+              "n": 80,
+              "precision": 1.0,
+              "predicted_selectivity": 0.0875,
+              "quality_note": null,
+              "recall": 0.5833333333333334,
+              "tn": 68,
+              "tp": 7
+            },
+            "repeat": 1,
+            "runtime_seconds": 10.430067367007723,
+            "stages": [
+              {
+                "filter": "acting_quality",
+                "input_rows": 80,
+                "passed_rows": 13
+              },
+              {
+                "filter": "positive",
+                "input_rows": 13,
+                "passed_rows": 7
+              }
+            ],
+            "strategy": "sequential"
+          }
+        ],
+        "runtime_seconds": 10.430067367007723,
+        "semantic_questions": 93
+      },
+      "sequential:positive,acting_quality": {
+        "agreement_with_independent": null,
+        "api_latency_seconds": 14.771626633984852,
+        "estimated_cost_usd": 0.0017528280000000003,
+        "estimated_credits": null,
+        "input_tokens": 41734,
+        "model_calls": 134,
+        "output_tokens": 2734,
+        "repeat_consistency": null,
+        "repeats": [
+          {
+            "estimated_cost_usd": 0.0017528280000000003,
+            "estimated_credits": null,
+            "execution_position": 3,
+            "filter_order": [
+              "positive",
+              "acting_quality"
+            ],
+            "input_tokens": 41734,
+            "model_calls": 134,
+            "n_records": 80,
+            "output_tokens": 2734,
+            "plan": "sequential:positive,acting_quality",
+            "quality": {
+              "accuracy": 0.9375,
+              "f1": 0.7368421052631579,
+              "fn": 5,
+              "fp": 0,
+              "gold_positive_count": 12,
+              "gold_selectivity": 0.15,
+              "n": 80,
+              "precision": 1.0,
+              "predicted_selectivity": 0.0875,
+              "quality_note": null,
+              "recall": 0.5833333333333334,
+              "tn": 68,
+              "tp": 7
+            },
+            "repeat": 1,
+            "runtime_seconds": 14.799821704989881,
+            "stages": [
+              {
+                "filter": "positive",
+                "input_rows": 80,
+                "passed_rows": 54
+              },
+              {
+                "filter": "acting_quality",
+                "input_rows": 54,
+                "passed_rows": 7
+              }
+            ],
+            "strategy": "sequential"
+          }
+        ],
+        "runtime_seconds": 14.799821704989881,
+        "semantic_questions": 134
+      }
+    },
+    "total_estimated_cost_usd": 0.0040926479999999965,
+    "total_estimated_credits": null,
+    "total_model_calls": 307
+  },
+  "objective": "input_tokens",
+  "optimizer_end_to_end": {
+    "api_latency_seconds": 15.909808762109606,
+    "estimated_cost_usd": 0.0018980639999999997,
+    "input_tokens": 45192,
+    "model_calls": 140,
+    "note": "Includes sampling overhead. Sample rows are answered by the independent sample run.",
+    "quality": {
+      "accuracy": 0.94,
+      "f1": 0.7272727272727273,
+      "fn": 6,
+      "fp": 0,
+      "gold_selectivity": 0.14,
+      "n": 100,
+      "precision": 1.0,
+      "predicted_selectivity": 0.08,
+      "recall": 0.5714285714285714,
+      "tn": 86,
+      "tp": 8
+    },
+    "rows": 100
+  },
+  "predicted_vs_actual": {
+    "cheapest_measured_plan": "combined:acting_quality,positive",
+    "chosen_was_cheapest": true,
+    "objective": "input_tokens",
+    "plans": {
+      "combined:acting_quality,positive": {
+        "actual_cost_per_row": 330.85,
+        "predicted_cost_per_row": 324.4,
+        "relative_error": -0.019495239534532402
+      },
+      "sequential:acting_quality,positive": {
+        "actual_cost_per_row": 365.525,
+        "predicted_cost_per_row": 338.73999999999995,
+        "relative_error": -0.07327816154845777
+      },
+      "sequential:positive,acting_quality": {
+        "actual_cost_per_row": 521.675,
+        "predicted_cost_per_row": 457.59999999999997,
+        "relative_error": -0.1228255139694254
+      }
+    },
+    "regret": 0.0
+  },
+  "sampling_overhead": {
+    "api_latency_seconds": 6.845110501075396,
+    "estimated_cost_usd": 0.0007864080000000003,
+    "input_tokens": 18724,
+    "model_calls": 60
+  }
+}

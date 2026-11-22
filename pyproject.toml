@@ -26,6 +26,7 @@ jev-build-task = "jev_milestone_2.tools.build_task:main"
 jev-filter-profile = "jev_milestone_3.cli:profile_main"
 jev-sample-analysis = "jev_milestone_3.cli:analysis_main"
 jev-ordering-analysis = "jev_milestone_3.cli:ordering_main"
+jev-optimize = "jev_milestone_4.cli:main"
 
 [dependency-groups]
 dev = [
@@ -40,4 +41,4 @@ build-backend = "hatchling.build"
 testpaths = ["tests"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/jev_milestone_1", "src/jev_milestone_2", "src/jev_milestone_3"]
+packages = ["src/jev_milestone_1", "src/jev_milestone_2", "src/jev_milestone_3", "src/jev_milestone_4"]
