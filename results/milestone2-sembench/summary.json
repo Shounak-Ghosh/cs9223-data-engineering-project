@@ -1,0 +1,198 @@
+{
+  "comparisons_vs_combined": {
+    "combined:acting_quality,positive": {
+      "estimated_credit_savings": null,
+      "first_repeat_prediction_disagreements": 0,
+      "model_calls_saved": 0
+    },
+    "sequential:acting_quality,positive": {
+      "estimated_credit_savings": null,
+      "first_repeat_prediction_disagreements": 0,
+      "model_calls_saved": -16
+    },
+    "sequential:positive,acting_quality": {
+      "estimated_credit_savings": null,
+      "first_repeat_prediction_disagreements": 0,
+      "model_calls_saved": -64
+    }
+  },
+  "plans": {
+    "combined:acting_quality,positive": {
+      "agreement_with_independent": null,
+      "api_latency_seconds": 8.337573630094994,
+      "estimated_cost_usd": null,
+      "estimated_credits": null,
+      "input_tokens": 32956,
+      "model_calls": 100,
+      "output_tokens": 3700,
+      "repeat_consistency": null,
+      "repeats": [
+        {
+          "estimated_cost_usd": null,
+          "estimated_credits": null,
+          "execution_position": 1,
+          "filter_order": [
+            "acting_quality",
+            "positive"
+          ],
+          "input_tokens": 32956,
+          "model_calls": 100,
+          "n_records": 100,
+          "output_tokens": 3700,
+          "plan": "combined:acting_quality,positive",
+          "quality": {
+            "accuracy": 0.94,
+            "f1": 0.7272727272727273,
+            "fn": 6,
+            "fp": 0,
+            "gold_positive_count": 14,
+            "gold_selectivity": 0.14,
+            "n": 100,
+            "precision": 1.0,
+            "predicted_selectivity": 0.08,
+            "quality_note": null,
+            "recall": 0.5714285714285714,
+            "tn": 86,
+            "tp": 8
+          },
+          "repeat": 1,
+          "runtime_seconds": 8.363844625011552,
+          "stages": [
+            {
+              "filter": "acting_quality",
+              "input_rows": 100,
+              "passed_rows": 15
+            },
+            {
+              "filter": "positive",
+              "input_rows": 100,
+              "passed_rows": 64
+            }
+          ],
+          "strategy": "combined"
+        }
+      ],
+      "runtime_seconds": 8.363844625011552,
+      "semantic_questions": 200
+    },
+    "sequential:acting_quality,positive": {
+      "agreement_with_independent": null,
+      "api_latency_seconds": 9.323684329807293,
+      "estimated_cost_usd": null,
+      "estimated_credits": null,
+      "input_tokens": 36362,
+      "model_calls": 116,
+      "output_tokens": 2420,
+      "repeat_consistency": null,
+      "repeats": [
+        {
+          "estimated_cost_usd": null,
+          "estimated_credits": null,
+          "execution_position": 2,
+          "filter_order": [
+            "acting_quality",
+            "positive"
+          ],
+          "input_tokens": 36362,
+          "model_calls": 116,
+          "n_records": 100,
+          "output_tokens": 2420,
+          "plan": "sequential:acting_quality,positive",
+          "quality": {
+            "accuracy": 0.94,
+            "f1": 0.7272727272727273,
+            "fn": 6,
+            "fp": 0,
+            "gold_positive_count": 14,
+            "gold_selectivity": 0.14,
+            "n": 100,
+            "precision": 1.0,
+            "predicted_selectivity": 0.08,
+            "quality_note": null,
+            "recall": 0.5714285714285714,
+            "tn": 86,
+            "tp": 8
+          },
+          "repeat": 1,
+          "runtime_seconds": 9.354812291974667,
+          "stages": [
+            {
+              "filter": "acting_quality",
+              "input_rows": 100,
+              "passed_rows": 16
+            },
+            {
+              "filter": "positive",
+              "input_rows": 16,
+              "passed_rows": 8
+            }
+          ],
+          "strategy": "sequential"
+        }
+      ],
+      "runtime_seconds": 9.354812291974667,
+      "semantic_questions": 116
+    },
+    "sequential:positive,acting_quality": {
+      "agreement_with_independent": null,
+      "api_latency_seconds": 13.163838045613375,
+      "estimated_cost_usd": null,
+      "estimated_credits": null,
+      "input_tokens": 50889,
+      "model_calls": 164,
+      "output_tokens": 3344,
+      "repeat_consistency": null,
+      "repeats": [
+        {
+          "estimated_cost_usd": null,
+          "estimated_credits": null,
+          "execution_position": 3,
+          "filter_order": [
+            "positive",
+            "acting_quality"
+          ],
+          "input_tokens": 50889,
+          "model_calls": 164,
+          "n_records": 100,
+          "output_tokens": 3344,
+          "plan": "sequential:positive,acting_quality",
+          "quality": {
+            "accuracy": 0.94,
+            "f1": 0.7272727272727273,
+            "fn": 6,
+            "fp": 0,
+            "gold_positive_count": 14,
+            "gold_selectivity": 0.14,
+            "n": 100,
+            "precision": 1.0,
+            "predicted_selectivity": 0.08,
+            "quality_note": null,
+            "recall": 0.5714285714285714,
+            "tn": 86,
+            "tp": 8
+          },
+          "repeat": 1,
+          "runtime_seconds": 13.208136041008402,
+          "stages": [
+            {
+              "filter": "positive",
+              "input_rows": 100,
+              "passed_rows": 64
+            },
+            {
+              "filter": "acting_quality",
+              "input_rows": 64,
+              "passed_rows": 8
+            }
+          ],
+          "strategy": "sequential"
+        }
+      ],
+      "runtime_seconds": 13.208136041008402,
+      "semantic_questions": 164
+    }
+  },
+  "total_estimated_cost_usd": null,
+  "total_estimated_credits": null,
+  "total_model_calls": 380
+}
