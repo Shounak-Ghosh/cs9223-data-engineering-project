@@ -1,0 +1,65 @@
+{
+  "call_bounds": {
+    "combined_calls": 400,
+    "one_question_calls": 300,
+    "queries": [
+      "gratitude,admiration",
+      "admiration,optimism",
+      "gratitude,optimism",
+      "gratitude,admiration,optimism"
+    ],
+    "records": 100,
+    "total_calls": 700
+  },
+  "filters": {
+    "admiration": "Does this text express admiration for someone or something?",
+    "gratitude": "Does this text express gratitude or thanks?",
+    "optimism": "Does this text express optimism or hope about the future?"
+  },
+  "finished_at": "2026-11-27T23:50:54.351368+00:00",
+  "input_file": "data/sample.jsonl",
+  "input_manifest": {
+    "dataset_file": "test.jsonl",
+    "dataset_repo": "SetFit/go_emotions",
+    "dataset_revision": "b83b20869f3b5eff89c0a375d8d015a878826094",
+    "labels": [
+      "gratitude",
+      "admiration",
+      "anger",
+      "optimism"
+    ],
+    "notes": "Ground-truth emotion annotations can be subjective and imperfect.",
+    "sample_rows": 100,
+    "sample_seed": 42,
+    "sample_sha256": "9c8f327dd3298f915f5a2095ff79c078d038f4f6abc04305491a52c9932c3c3b",
+    "sampling_method": "uniform without replacement, sorted by source row",
+    "source_rows": 5427,
+    "source_sha256": "63c68fd56fa2470a701135a0c31dd8aff946a535efef663a7917415149e88630"
+  },
+  "n_records": 100,
+  "pricing": {
+    "input_per_million": 0.042,
+    "output_per_million": 0.0
+  },
+  "pricing_source": "https://docs.typesafe.ai/models; checked 2026-11-09; Jev 1.14",
+  "python": "3.11.15",
+  "requested_model": "jev-1.14.0",
+  "resolved_models": [
+    "jev-1.14.0"
+  ],
+  "runs": {
+    "combined-admiration-optimism": "combined:admiration,optimism",
+    "combined-gratitude-admiration": "combined:gratitude,admiration",
+    "combined-gratitude-admiration-optimism": "combined:gratitude,admiration,optimism",
+    "combined-gratitude-optimism": "combined:gratitude,optimism",
+    "independent": "independent:gratitude,admiration,optimism"
+  },
+  "sdk_max_retries": 0,
+  "selected_records_sha256": "58dc9fdf76ebd2ad4832eb42b0b91d981bab96691b867642441414b40cfad573",
+  "source_sample_sha256": "9c8f327dd3298f915f5a2095ff79c078d038f4f6abc04305491a52c9932c3c3b",
+  "started_at": "2026-11-27T23:49:55.859993+00:00",
+  "status": "complete",
+  "task_sha256": null,
+  "threshold": 0.5,
+  "typesafe_sdk_version": "0.7.5"
+}

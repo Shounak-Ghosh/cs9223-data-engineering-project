@@ -57,3 +57,20 @@ uv run jev-optimize --input data/sembench_movie_verified.jsonl \
 
 See [Milestone 4 instructions](src/jev_milestone_4/README.md) for the cost model,
 quality guard, live runs, outputs, and interpretation.
+
+# Milestone 5
+
+Initial end-to-end experiments: replay the optimizer against always-combined and
+every fixed order over many seeds with no new API calls, and a cheaper sampling
+mode (`--sample-mode cheap`) that halves the optimizer's sampling overhead:
+
+```bash
+uv sync --locked
+uv run pytest -q
+uv run jev-benchmark --input data/sembench_movie_verified.jsonl \
+  --calls results/milestone2-sembench/calls.jsonl \
+  --query acting_quality,positive --output-dir /tmp/sembench-replay
+```
+
+See [Milestone 5 instructions](src/jev_milestone_5/README.md) for the replay
+checks, cheap sampling, live runs, outputs, and results.

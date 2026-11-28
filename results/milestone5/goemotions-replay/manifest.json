@@ -1,0 +1,64 @@
+{
+  "agreement_threshold": 0.95,
+  "api_calls_made": 0,
+  "calls_files": {
+    "results/milestone5/goemotions-collect/combined-admiration-optimism/calls.jsonl": "8325f7165f482e8f877fefbed6f1d5d9616a4a6dba195398b1b0fa3a5dacb121",
+    "results/milestone5/goemotions-collect/combined-gratitude-admiration-optimism/calls.jsonl": "414665aa81cffe86c81e3c4d9a4177e939994e0eb89b20500fa1bbc39a1e430a",
+    "results/milestone5/goemotions-collect/combined-gratitude-admiration/calls.jsonl": "4395a319db103848f06ecba48a1783238e3253b09512cb8e0fe3b8b7eab43af1",
+    "results/milestone5/goemotions-collect/combined-gratitude-optimism/calls.jsonl": "572e5304927dd7f032a7c98582dcdae210bb5745ac4e14985cc921b453ac5a1d",
+    "results/milestone5/goemotions-collect/independent/calls.jsonl": "09302fb35d9155ad0851baea49961eeb5ca794094386f2d58c32e9324009e471"
+  },
+  "created_at": "2026-11-27T23:51:16.918021+00:00",
+  "dataset": "goemotions",
+  "guard_rows": [
+    3,
+    5,
+    10
+  ],
+  "input_file": "data/sample.jsonl",
+  "input_sha256": "9c8f327dd3298f915f5a2095ff79c078d038f4f6abc04305491a52c9932c3c3b",
+  "k": [
+    10,
+    20
+  ],
+  "modes": [
+    "full",
+    "cheap"
+  ],
+  "objective": "input_tokens",
+  "pricing": null,
+  "queries": [
+    "gratitude,admiration",
+    "admiration,optimism",
+    "gratitude,optimism",
+    "gratitude,admiration,optimism"
+  ],
+  "repeat_check": {
+    "repeated_requests": 0,
+    "same_decisions": 0,
+    "same_input_tokens": 0
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "threshold": 0.5
+}

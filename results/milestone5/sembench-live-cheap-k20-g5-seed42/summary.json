@@ -1,0 +1,123 @@
+{
+  "chosen": "combined:acting_quality,positive",
+  "execution": {
+    "comparisons_vs_combined": {
+      "combined:acting_quality,positive": {
+        "estimated_credit_savings": null,
+        "first_repeat_prediction_disagreements": 0,
+        "model_calls_saved": 0
+      }
+    },
+    "plans": {
+      "combined:acting_quality,positive": {
+        "agreement_with_independent": null,
+        "api_latency_seconds": 8.530150402104482,
+        "estimated_cost_usd": 0.0011116559999999997,
+        "estimated_credits": null,
+        "input_tokens": 26468,
+        "model_calls": 80,
+        "output_tokens": 2960,
+        "repeat_consistency": null,
+        "repeats": [
+          {
+            "estimated_cost_usd": 0.0011116559999999997,
+            "estimated_credits": null,
+            "execution_position": 1,
+            "filter_order": [
+              "acting_quality",
+              "positive"
+            ],
+            "input_tokens": 26468,
+            "model_calls": 80,
+            "n_records": 80,
+            "output_tokens": 2960,
+            "plan": "combined:acting_quality,positive",
+            "quality": {
+              "accuracy": 0.9375,
+              "f1": 0.7368421052631579,
+              "fn": 5,
+              "fp": 0,
+              "gold_positive_count": 12,
+              "gold_selectivity": 0.15,
+              "n": 80,
+              "precision": 1.0,
+              "predicted_selectivity": 0.0875,
+              "quality_note": null,
+              "recall": 0.5833333333333334,
+              "tn": 68,
+              "tp": 7
+            },
+            "repeat": 1,
+            "runtime_seconds": 8.569028263998916,
+            "stages": [
+              {
+                "filter": "acting_quality",
+                "input_rows": 80,
+                "passed_rows": 13
+              },
+              {
+                "filter": "positive",
+                "input_rows": 80,
+                "passed_rows": 54
+              }
+            ],
+            "strategy": "combined"
+          }
+        ],
+        "runtime_seconds": 8.569028263998916,
+        "semantic_questions": 160
+      }
+    },
+    "total_estimated_cost_usd": 0.0011116559999999997,
+    "total_estimated_credits": null,
+    "total_model_calls": 80
+  },
+  "objective": "input_tokens",
+  "optimizer_end_to_end": {
+    "api_latency_seconds": 11.969906386104412,
+    "estimated_cost_usd": 0.0015134699999999994,
+    "input_tokens": 36035,
+    "model_calls": 110,
+    "note": "Includes sampling overhead. Sample rows are answered by the combined sample calls.",
+    "quality": {
+      "accuracy": 0.94,
+      "f1": 0.7272727272727273,
+      "fn": 6,
+      "fp": 0,
+      "gold_selectivity": 0.14,
+      "n": 100,
+      "precision": 1.0,
+      "predicted_selectivity": 0.08,
+      "recall": 0.5714285714285714,
+      "tn": 86,
+      "tp": 8
+    },
+    "rows": 100
+  },
+  "predicted_vs_actual": {
+    "cheapest_measured_plan": "combined:acting_quality,positive",
+    "chosen_was_cheapest": null,
+    "objective": "input_tokens",
+    "plans": {
+      "combined:acting_quality,positive": {
+        "actual_cost_per_row": 330.85,
+        "predicted_cost_per_row": 324.4,
+        "relative_error": -0.019495239534532402
+      }
+    },
+    "regret": null
+  },
+  "sample_fill": {
+    "api_latency_seconds": 0,
+    "estimated_cost_usd": 0,
+    "input_tokens": 0,
+    "model_calls": 0
+  },
+  "sample_mode": "cheap",
+  "sampling_overhead": {
+    "api_latency_seconds": 3.4397559839999303,
+    "estimated_cost_usd": 0.00040181399999999996,
+    "input_tokens": 9567,
+    "model_calls": 30
+  }
+}

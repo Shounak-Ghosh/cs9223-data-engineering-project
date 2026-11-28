@@ -1,0 +1,189 @@
+{
+  "choice": {
+    "agreement_threshold": 0.95,
+    "candidates": [
+      {
+        "allowed": true,
+        "filters": [
+          "acting_quality",
+          "positive"
+        ],
+        "independence_assumption_cost_per_row": null,
+        "plan": "combined:acting_quality,positive",
+        "predicted_cost_per_row": 324.4,
+        "reach_fractions": null,
+        "reason": null,
+        "strategy": "combined"
+      },
+      {
+        "allowed": true,
+        "filters": [
+          "acting_quality",
+          "positive"
+        ],
+        "independence_assumption_cost_per_row": 340.94,
+        "plan": "sequential:acting_quality,positive",
+        "predicted_cost_per_row": 340.94,
+        "reach_fractions": [
+          1.0,
+          0.1
+        ],
+        "reason": null,
+        "strategy": "sequential"
+      },
+      {
+        "allowed": true,
+        "filters": [
+          "positive",
+          "acting_quality"
+        ],
+        "independence_assumption_cost_per_row": 460.59999999999997,
+        "plan": "sequential:positive,acting_quality",
+        "predicted_cost_per_row": 460.59999999999997,
+        "reach_fractions": [
+          1.0,
+          0.5
+        ],
+        "reason": null,
+        "strategy": "sequential"
+      }
+    ],
+    "chosen": "combined:acting_quality,positive",
+    "chosen_filters": [
+      "acting_quality",
+      "positive"
+    ],
+    "chosen_strategy": "combined",
+    "combined_agreement_with_independent": 1.0,
+    "objective": "input_tokens"
+  },
+  "estimates": {
+    "combined": {
+      "agreement_with_independent": 1.0,
+      "mean_cost": {
+        "calls": 1.0,
+        "input_tokens": 324.4,
+        "latency": 0.10820747510151704,
+        "usd": 1.36248e-05
+      },
+      "n_calls": 20,
+      "per_filter_agreement": {
+        "acting_quality": 1.0,
+        "positive": 1.0
+      }
+    },
+    "decision_matrix": {
+      "102699888": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "102702358": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "102779616": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "102779975": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "102780251": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "1170016": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2382850": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "2383778": {
+        "acting_quality": 1,
+        "positive": 1
+      },
+      "2397467": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "2451970": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2488909": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2565348": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "2607847": {
+        "acting_quality": 1,
+        "positive": 0
+      },
+      "2630876": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2644108": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2654892": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2655590": {
+        "acting_quality": 0,
+        "positive": 0
+      },
+      "2666979": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2785009": {
+        "acting_quality": 0,
+        "positive": 1
+      },
+      "2833535": {
+        "acting_quality": 0,
+        "positive": 0
+      }
+    },
+    "filters": [
+      "acting_quality",
+      "positive"
+    ],
+    "guard_rows": 5,
+    "k": 20,
+    "mode": "cheap",
+    "per_filter": {
+      "acting_quality": {
+        "mean_cost": {
+          "calls": 1.0,
+          "input_tokens": 310.4,
+          "latency": 0.11958444020128808,
+          "usd": 1.30368e-05
+        },
+        "n_calls": 5,
+        "passes": 2,
+        "selectivity": 0.1
+      },
+      "positive": {
+        "mean_cost": {
+          "calls": 1.0,
+          "input_tokens": 305.4,
+          "latency": 0.13553685619262978,
+          "usd": 1.2826799999999999e-05
+        },
+        "n_calls": 5,
+        "passes": 10,
+        "selectivity": 0.5
+      }
+    }
+  }
+}

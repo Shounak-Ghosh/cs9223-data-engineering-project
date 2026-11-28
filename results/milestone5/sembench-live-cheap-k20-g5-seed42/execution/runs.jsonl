@@ -1,0 +1,1 @@
+{"execution_position":1,"filter_order":["acting_quality","positive"],"model_calls":80,"n_records":80,"plan":"combined:acting_quality,positive","repeat":1,"runtime_seconds":8.569028263998916,"stages":[{"filter":"acting_quality","input_rows":80,"passed_rows":13},{"filter":"positive","input_rows":80,"passed_rows":54}],"strategy":"combined"}

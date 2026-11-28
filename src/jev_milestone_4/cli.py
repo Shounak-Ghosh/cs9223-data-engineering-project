@@ -36,7 +36,9 @@ from jev_milestone_3.sampling import draw_sample
 from .optimizer import (
     MAX_FILTERS,
     OBJECTIVES,
+    SAMPLE_MODES,
     choose_plan,
+    estimate_from_cheap_sample,
     estimate_from_sample,
     plan_from_choice,
     predicted_vs_actual,
@@ -50,6 +52,26 @@ def _now() -> str:
 def _sum(rows: list[dict], field: str) -> float | None:
     values = [r[field] for r in rows]
     return sum(values) if all(v is not None for v in values) else None
+
+
+def _cost_totals(calls: list[dict]) -> dict:
+    return {
+        "model_calls": len(calls),
+        "input_tokens": _sum(calls, "input_tokens"),
+        "estimated_cost_usd": _sum(calls, "estimated_cost_usd"),
+        "api_latency_seconds": _sum(calls, "latency_seconds"),
+    }
+
+
+def _plan_decisions(result: dict, plan: Plan) -> list[dict]:
+    return [d for d in result["decisions"] if d["plan"] == plan.name]
+
+
+_E2E_NOTES = {
+    "full": "Includes sampling overhead. Sample rows are answered by the independent sample run.",
+    "cheap_combined": "Includes sampling overhead. Sample rows are answered by the combined sample calls.",
+    "cheap_sequential": "Includes sampling overhead. Guard rows are answered by their one-question calls; other sample rows by the chosen plan (sample_fill).",
+}
 
 
 def _quality(rows: list[dict]) -> dict:
@@ -76,6 +98,19 @@ def build_parser() -> argparse.ArgumentParser:
         "--k", type=int, default=20, help="Sample size (Milestone 3 recommends 20)"
     )
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--sample-mode",
+        choices=SAMPLE_MODES,
+        default="full",
+        help="full: independent and combined on all k rows (Milestone 4); "
+        "cheap: combined on all k rows, independent only on --guard-rows rows",
+    )
+    parser.add_argument(
+        "--guard-rows",
+        type=int,
+        default=5,
+        help="Cheap mode only: sample rows that also get one-question calls",
+    )
     parser.add_argument(
         "--objective",
         choices=sorted(OBJECTIVES),
@@ -157,19 +192,29 @@ def main(argv: Sequence[str] | None = None) -> None:
             raise ValueError(
                 "--k must be smaller than the number of rows to leave rows to execute"
             )
+        cheap = args.sample_mode == "cheap"
+        if cheap and not 1 <= args.guard_rows <= len(sample):
+            raise ValueError("--guard-rows must be between 1 and --k")
+        guard = draw_sample(sample, args.guard_rows, args.seed) if cheap else []
     except (OSError, ValueError, KeyError, TypeError) as error:
         parser.error(str(error))
     sample_ids = {r["id"] for r in sample}
     rest = [r for r in records if r["id"] not in sample_ids]
     n_f = len(filters)
-    sample_calls = len(sample) * (n_f + 1)
+    if cheap:
+        sample_calls = len(sample) + len(guard) * n_f
+        # If a sequential plan wins, the non-guard sample rows still need answers.
+        fill_max = 0 if args.plan_only else (len(sample) - len(guard)) * n_f
+    else:
+        sample_calls = len(sample) * (n_f + 1)
+        fill_max = 0
     if args.plan_only:
         exec_max = 0
     elif args.evaluate_all_plans:
         exec_max = len(rest) * (math.factorial(n_f) * n_f + 1)
     else:
         exec_max = len(rest) * n_f
-    worst_case = sample_calls + exec_max
+    worst_case = sample_calls + fill_max + exec_max
     bounds = {
         "records": len(records),
         "sample_rows": len(sample),
@@ -178,6 +223,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         "execution_max_calls": exec_max,
         "worst_case_calls": worst_case,
     }
+    if cheap:
+        bounds["guard_rows"] = len(guard)
+        bounds["sample_fill_max_calls"] = fill_max
     print(json.dumps(bounds, indent=2))
     if worst_case > args.max_api_calls:
         parser.error(
@@ -218,7 +266,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         "input_manifest": source_manifest,
         "task_sha256": digest_file(args.task) if args.task else None,
         "n_records": len(records),
+        "sample_mode": args.sample_mode,
         "sample_ids": [r["id"] for r in sample],
+        "guard_ids": [r["id"] for r in guard] if cheap else None,
         "selected_records_sha256": hashlib.sha256(
             canonical_json(records).encode("utf-8")
         ).hexdigest(),
@@ -268,8 +318,18 @@ def main(argv: Sequence[str] | None = None) -> None:
                         requested_model=args.model,
                     )
 
-            sample_result = run_phase("sample", sample, sample_plans)
-            estimates = estimate_from_sample(sample_result, filters)
+            independent_plan, combined_plan = sample_plans
+            if cheap:
+                sample_result = run_phase("sample", sample, [combined_plan])
+                guard_result = run_phase("guard", guard, [independent_plan])
+                estimates = estimate_from_cheap_sample(
+                    sample_result, guard_result, filters
+                )
+                sampling_calls = sample_result["calls"] + guard_result["calls"]
+            else:
+                sample_result = run_phase("sample", sample, sample_plans)
+                estimates = estimate_from_sample(sample_result, filters)
+                sampling_calls = sample_result["calls"]
             choice = choose_plan(
                 estimates,
                 objective=args.objective,
@@ -282,19 +342,28 @@ def main(argv: Sequence[str] | None = None) -> None:
             summary: dict = {
                 "chosen": choice["chosen"],
                 "objective": args.objective,
-                "sampling_overhead": {
-                    "model_calls": len(sample_result["calls"]),
-                    "input_tokens": _sum(sample_result["calls"], "input_tokens"),
-                    "estimated_cost_usd": _sum(
-                        sample_result["calls"], "estimated_cost_usd"
-                    ),
-                    "api_latency_seconds": _sum(
-                        sample_result["calls"], "latency_seconds"
-                    ),
-                },
+                "sample_mode": args.sample_mode,
+                "sampling_overhead": _cost_totals(sampling_calls),
             }
+            all_calls = list(sampling_calls)
             if not args.plan_only:
                 chosen = plan_from_choice(choice)
+                # Answers for the sample rows, reusing paid calls where possible.
+                fill_calls: list[dict] = []
+                if not cheap:
+                    sample_answers = _plan_decisions(sample_result, independent_plan)
+                elif chosen.strategy == "combined":
+                    sample_answers = _plan_decisions(sample_result, combined_plan)
+                else:
+                    sample_answers = _plan_decisions(guard_result, independent_plan)
+                    guard_ids = {r["id"] for r in guard}
+                    fill_rows = [r for r in sample if r["id"] not in guard_ids]
+                    if fill_rows:
+                        fill = run_phase("sample_fill", fill_rows, [chosen])
+                        sample_answers += _plan_decisions(fill, chosen)
+                        fill_calls = fill["calls"]
+                if cheap:
+                    summary["sample_fill"] = _cost_totals(fill_calls)
                 plans = [chosen]
                 if args.evaluate_all_plans:
                     plans += [
@@ -303,46 +372,30 @@ def main(argv: Sequence[str] | None = None) -> None:
                         if c["plan"] != chosen.name
                     ]
                 execution = run_phase("execution", rest, plans)
+                all_calls += fill_calls + execution["calls"]
                 summary["execution"] = summarize_experiment(execution)
                 summary["predicted_vs_actual"] = predicted_vs_actual(choice, execution)
-                chosen_rows = [
-                    d for d in execution["decisions"] if d["plan"] == chosen.name
-                ]
+                chosen_rows = _plan_decisions(execution, chosen)
                 chosen_calls = [
                     c for c in execution["calls"] if c["plan"] == chosen.name
                 ]
-                # Optimizer answer for every row: sample rows from the independent run, the rest from the chosen plan.
-                sample_answers = [
-                    d
-                    for d in sample_result["decisions"]
-                    if d["plan"] == sample_plans[0].name
-                ]
+                e2e_calls = sampling_calls + fill_calls + chosen_calls
                 summary["optimizer_end_to_end"] = {
                     "rows": len(sample_answers) + len(chosen_rows),
-                    "model_calls": len(sample_result["calls"]) + len(chosen_calls),
-                    "input_tokens": _sum(
-                        sample_result["calls"] + chosen_calls, "input_tokens"
-                    ),
-                    "estimated_cost_usd": _sum(
-                        sample_result["calls"] + chosen_calls, "estimated_cost_usd"
-                    ),
-                    "api_latency_seconds": _sum(
-                        sample_result["calls"] + chosen_calls, "latency_seconds"
-                    ),
+                    **_cost_totals(e2e_calls),
                     "quality": _quality(sample_answers + chosen_rows),
-                    "note": "Includes sampling overhead. Sample rows are answered by the independent sample run.",
+                    "note": _E2E_NOTES[
+                        "full"
+                        if not cheap
+                        else "cheap_combined"
+                        if chosen.strategy == "combined"
+                        else "cheap_sequential"
+                    ],
                 }
             write_json(out / "summary.json", summary)
         manifest.update(
             status="complete",
-            resolved_models=sorted(
-                {c["model"] for c in sample_result["calls"]}
-                | (
-                    {c["model"] for c in execution["calls"]}
-                    if not args.plan_only
-                    else set()
-                )
-            ),
+            resolved_models=sorted({c["model"] for c in all_calls if c.get("model")}),
         )
     except BaseException as error:
         manifest.update(status="failed", error_type=type(error).__name__)

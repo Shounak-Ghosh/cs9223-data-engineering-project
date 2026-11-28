@@ -1,0 +1,5 @@
+dataset,query,plan,total_calls,total_usd,total_input_tokens,total_latency,f1,precision,recall
+sembench-movie,acting_quality AND positive,"sequential:acting_quality,positive",116.0,,36362.0,9.323684329807293,0.7272727272727273,1.0,0.5714285714285714
+sembench-movie,acting_quality AND positive,"sequential:positive,acting_quality",164.0,,50889.0,13.324083501880523,0.7272727272727273,1.0,0.5714285714285714
+sembench-movie,acting_quality AND positive,"combined:acting_quality,positive",100.0,,32956.0,8.337573630094994,0.7272727272727273,1.0,0.5714285714285714
+sembench-movie,acting_quality AND positive,"independent:acting_quality,positive",200.0,,62212.0,16.058282500656787,0.7272727272727273,1.0,0.5714285714285714

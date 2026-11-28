@@ -1,0 +1,59 @@
+{
+  "agreement_threshold": 0.95,
+  "api_calls_made": 0,
+  "calls_files": {
+    "results/milestone2-sembench/calls.jsonl": "7f339e3a7c633cb36a24f524abcdd7bb9727a38e6de1b8bdbf702df7b23c6a9e",
+    "results/milestone4/sembench-k20-seed42-all/execution/calls.jsonl": "b8e774ce16c72e9db1de64d6b4323ae93c18e5694c21677da53df1ed8eb1d010",
+    "results/milestone4/sembench-k20-seed42-all/sample/calls.jsonl": "441f2cb9aae85e3e19fa38333d61cc0c13c368037b820162b14e8e1baf784650"
+  },
+  "created_at": "2026-11-27T23:04:25.261622+00:00",
+  "dataset": "sembench-movie",
+  "guard_rows": [
+    3,
+    5,
+    10
+  ],
+  "input_file": "data/sembench_movie_verified.jsonl",
+  "input_sha256": "3689becf0fb9e87df233f3fcb2f83ad44d470eff191be1bdc7f8c4786f6d91e9",
+  "k": [
+    10,
+    20
+  ],
+  "modes": [
+    "full",
+    "cheap"
+  ],
+  "objective": "input_tokens",
+  "pricing": null,
+  "queries": [
+    "acting_quality,positive"
+  ],
+  "repeat_check": {
+    "repeated_requests": 447,
+    "same_decisions": 446,
+    "same_input_tokens": 447
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "threshold": 0.5
+}

@@ -1,0 +1,1 @@
+{"execution_position":1,"filter_order":["gratitude","admiration"],"model_calls":100,"n_records":100,"plan":"combined:gratitude,admiration","repeat":1,"runtime_seconds":8.203491311986,"stages":[{"filter":"gratitude","input_rows":100,"passed_rows":9},{"filter":"admiration","input_rows":100,"passed_rows":24}],"strategy":"combined"}

@@ -1,0 +1,21 @@
+dataset,query,plan,total_calls,total_usd,total_input_tokens,total_latency,f1,precision,recall
+goemotions,gratitude AND admiration,"sequential:gratitude,admiration",109.0,0.0013284599999999994,31630.0,9.211677443003282,0.0,0.0,0.0
+goemotions,gratitude AND admiration,"sequential:admiration,gratitude",124.0,0.0015188880000000001,36164.0,10.502674210962141,0.0,0.0,0.0
+goemotions,gratitude AND admiration,"combined:gratitude,admiration",100.0,0.0012892739999999998,30697.0,8.152277731947834,0.0,0.0,0.0
+goemotions,gratitude AND admiration,"independent:gratitude,admiration",200.0,0.002444148000000003,58194.0,17.033043258998077,0.0,0.0,0.0
+goemotions,admiration AND optimism,"sequential:admiration,optimism",124.0,0.0015219119999999998,36236.0,10.405669057974592,0.0,0.0,0.0
+goemotions,admiration AND optimism,"sequential:optimism,admiration",110.0,0.0013522319999999999,32196.0,8.453363384964177,0.0,0.0,0.0
+goemotions,admiration AND optimism,"combined:admiration,optimism",100.0,0.0013018739999999995,30997.0,8.299187958764378,0.0,0.0,0.0
+goemotions,admiration AND optimism,"independent:admiration,optimism",200.0,0.002456748000000002,58494.0,16.14960576593876,0.0,0.0,0.0
+goemotions,gratitude AND optimism,"sequential:gratitude,optimism",109.0,0.0013288379999999993,31639.0,9.275500943011139,0.6666666666666666,0.5,1.0
+goemotions,gratitude AND optimism,"sequential:optimism,gratitude",110.0,0.001351392,32176.0,8.551645305968123,0.6666666666666666,0.5,1.0
+goemotions,gratitude AND optimism,"combined:gratitude,optimism",100.0,0.0012934739999999995,30797.0,8.353802143130451,0.5,0.3333333333333333,1.0
+goemotions,gratitude AND optimism,"independent:gratitude,optimism",200.0,0.002448348000000002,58294.0,16.19907992699882,0.6666666666666666,0.5,1.0
+goemotions,gratitude AND admiration AND optimism,"sequential:gratitude,admiration,optimism",112.0,0.0013651679999999995,32504.0,9.46577776799677,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"sequential:gratitude,optimism,admiration",111.0,0.0013532819999999997,32221.0,9.438341695000418,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"sequential:admiration,gratitude,optimism",127.0,0.0015555960000000002,37038.0,10.756774535955628,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"sequential:admiration,optimism,gratitude",129.0,0.0015817620000000002,37661.0,10.835370925982716,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"sequential:optimism,gratitude,admiration",112.0,0.001375836,32758.0,8.714486057957401,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"sequential:optimism,admiration,gratitude",115.0,0.0014120819999999998,33621.0,8.883065252972301,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"combined:gratitude,admiration,optimism",100.0,0.0013648739999999992,32497.0,8.562050012988038,0.0,0.0,0.0
+goemotions,gratitude AND admiration AND optimism,"independent:gratitude,admiration,optimism",300.0,0.0036746220000000098,87491.0,24.690864475967828,0.0,0.0,0.0

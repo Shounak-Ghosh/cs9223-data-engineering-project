@@ -151,6 +151,9 @@ Run B is the one to commit and report: because every candidate runs on the same
 rows, it shows whether the chosen plan was actually the cheapest. Other useful
 flags: `--filters` (subset of task predicates), `--max-records`, `--objective`,
 `--threshold` (default 0.5, not calibrated), and `--model` (default `jev-1.14.0`).
+Milestone 5 adds `--sample-mode cheap --guard-rows g`, which takes pass rates from
+the combined calls and asks one-question calls only on `g` sample rows; see the
+[Milestone 5 README](../jev_milestone_5/README.md#3-refinement-cheap-sampling-mode).
 
 ## 6. Outputs
 
